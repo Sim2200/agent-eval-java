@@ -66,7 +66,7 @@ downstream service, not our CPU. So the design is "one virtual thread per (case,
 by a semaphore": the semaphore is set to what the judge can take, and threads are free.
 
 The benchmark (`ThreadBenchmark`, a simulated judge that sleeps 50-200 ms per case) makes the point
-concretely; see `results/benchmark_bound200.json` and `results/benchmark_bound1000.json` for the
+concretely; see `results/benchmark.json` (bound 200, 2,000 cases) and `results/benchmark_bound1000.json` (bound 1,000, 10,000 cases) for the
 exact numbers quoted in the README:
 
 - With the bound at 200, virtual threads and a 200-thread platform pool give the same throughput
