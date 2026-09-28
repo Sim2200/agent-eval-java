@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: agent-eval-java
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/agenteval}
+    username: ${DATABASE_USER:agenteval}
+    password: ${DATABASE_PASSWORD:agenteval}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+  threads:
+    virtual:
+      enabled: true
+
+agenteval:
+  judge:
+    model: gemini-2.5-flash
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
