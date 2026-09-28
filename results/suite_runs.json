@@ -1,0 +1,305 @@
+{
+  "runs": [
+    {
+      "suite": "booking-agent",
+      "run_id": 2,
+      "request_ms": 499,
+      "cases": 65,
+      "executions": 195,
+      "repeat": 3,
+      "pass_threshold": 2,
+      "stable_pass": 65,
+      "flaky": 0,
+      "stable_fail": 0,
+      "wall_millis": 12,
+      "judge": "stub",
+      "checks": {
+        "contains": {
+          "evaluations": 228,
+          "true_positives": 15,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "must_not_fire": {
+          "evaluations": 57,
+          "true_positives": 18,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "regex": {
+          "evaluations": 108,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "suite": "booking-agent",
+      "run_id": 3,
+      "request_ms": 291,
+      "cases": 65,
+      "executions": 195,
+      "repeat": 3,
+      "pass_threshold": 2,
+      "stable_pass": 65,
+      "flaky": 0,
+      "stable_fail": 0,
+      "wall_millis": 14,
+      "judge": "stub",
+      "checks": {
+        "contains": {
+          "evaluations": 228,
+          "true_positives": 15,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "must_not_fire": {
+          "evaluations": 57,
+          "true_positives": 18,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "regex": {
+          "evaluations": 108,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "suite": "tool-calling-agent",
+      "run_id": 4,
+      "request_ms": 367,
+      "cases": 50,
+      "executions": 150,
+      "repeat": 3,
+      "pass_threshold": 2,
+      "stable_pass": 50,
+      "flaky": 0,
+      "stable_fail": 0,
+      "wall_millis": 55,
+      "judge": "stub",
+      "checks": {
+        "json_schema": {
+          "evaluations": 150,
+          "true_positives": 21,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "regex": {
+          "evaluations": 72,
+          "true_positives": 9,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "contains": {
+          "evaluations": 60,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "must_not_fire": {
+          "evaluations": 15,
+          "true_positives": 9,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "suite": "tool-calling-agent",
+      "run_id": 5,
+      "request_ms": 208,
+      "cases": 50,
+      "executions": 150,
+      "repeat": 3,
+      "pass_threshold": 2,
+      "stable_pass": 50,
+      "flaky": 0,
+      "stable_fail": 0,
+      "wall_millis": 4,
+      "judge": "stub",
+      "checks": {
+        "json_schema": {
+          "evaluations": 150,
+          "true_positives": 21,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "regex": {
+          "evaluations": 72,
+          "true_positives": 9,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "contains": {
+          "evaluations": 60,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "must_not_fire": {
+          "evaluations": 15,
+          "true_positives": 9,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "suite": "summarizer",
+      "run_id": 6,
+      "request_ms": 145,
+      "cases": 45,
+      "executions": 135,
+      "repeat": 3,
+      "pass_threshold": 2,
+      "stable_pass": 45,
+      "flaky": 0,
+      "stable_fail": 0,
+      "wall_millis": 2,
+      "judge": "stub",
+      "checks": {
+        "llm_judge": {
+          "evaluations": 120,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "contains": {
+          "evaluations": 60,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "must_not_fire": {
+          "evaluations": 66,
+          "true_positives": 27,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "regex": {
+          "evaluations": 48,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "suite": "summarizer",
+      "run_id": 7,
+      "request_ms": 104,
+      "cases": 45,
+      "executions": 135,
+      "repeat": 3,
+      "pass_threshold": 2,
+      "stable_pass": 45,
+      "flaky": 0,
+      "stable_fail": 0,
+      "wall_millis": 1,
+      "judge": "stub",
+      "checks": {
+        "llm_judge": {
+          "evaluations": 120,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "contains": {
+          "evaluations": 60,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "must_not_fire": {
+          "evaluations": 66,
+          "true_positives": 27,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "regex": {
+          "evaluations": 48,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "errors": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        }
+      }
+    }
+  ],
+  "diff_example": {
+    "base": 2,
+    "other": 3,
+    "compared": 65,
+    "regressed": 0,
+    "improved": 0
+  }
+}

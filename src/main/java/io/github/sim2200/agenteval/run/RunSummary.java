@@ -1,5 +1,7 @@
 package io.github.sim2200.agenteval.run;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.sim2200.agenteval.domain.CaseResult;
 import io.github.sim2200.agenteval.domain.CheckResult;
 import io.github.sim2200.agenteval.domain.Outcome;
@@ -17,6 +19,7 @@ import java.util.Map;
  * case that should fail is a missed fire (false negative). Errors are counted separately and are
  * never a fire.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record RunSummary(
     int cases,
     int executions,
@@ -31,13 +34,16 @@ public record RunSummary(
     Map<String, CheckMetrics> checks) {
 
   /** Fire precision/recall for one check type across all executions. */
+  @JsonIgnoreProperties(ignoreUnknown = true)
   public record CheckMetrics(
       int evaluations, int truePositives, int falsePositives, int falseNegatives, int errors) {
+    @JsonProperty("precision")
     public double precision() {
       int fires = truePositives + falsePositives;
       return fires == 0 ? 1.0 : (double) truePositives / fires;
     }
 
+    @JsonProperty("recall")
     public double recall() {
       int shouldFire = truePositives + falseNegatives;
       return shouldFire == 0 ? 1.0 : (double) truePositives / shouldFire;

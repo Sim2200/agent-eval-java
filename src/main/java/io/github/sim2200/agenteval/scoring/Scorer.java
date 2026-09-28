@@ -1,5 +1,7 @@
 package io.github.sim2200.agenteval.scoring;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.sim2200.agenteval.domain.CaseResult;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,9 @@ public final class Scorer {
   }
 
   /** The score of one case across its N executions. */
+  @JsonIgnoreProperties(ignoreUnknown = true)
   public record CaseScore(String caseId, int executions, int passes, Band band) {
+    @JsonProperty("passRate")
     public double passRate() {
       return executions == 0 ? 0.0 : (double) passes / executions;
     }
