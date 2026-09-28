@@ -1,0 +1,15 @@
+{
+  "tests": 90,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "line_coverage_pct": 84.5,
+  "branch_coverage_pct": 82.7,
+  "instruction_coverage_pct": 85.8,
+  "lines_covered": 431,
+  "lines_total": 510,
+  "jacoco_excludes": [
+    "benchmark/**",
+    "AgentEvalApplication"
+  ]
+}
