@@ -1,0 +1,388 @@
+id: summarizer
+name: Document summarizer
+cases:
+  - id: s-001
+    input: "The renewable energy sector is growing rapidly. Solar panels are becoming more affordable. Wind turbines generate clean power. Many countries are investing heavily in green technology."
+    output: "The renewable energy sector has been expanding since 1800 with decreasing costs for solar and wind power generation."
+    checks:
+      - type: llm_judge
+        rubric: "Captures main topic of renewable energy and technology. expects: renewable, energy, solar, wind; rejects: coal, fossil"
+      - type: contains
+        text: "renewable"
+      - type: must_not_fire
+        phrases: ["1800"]
+        should_pass: false
+  - id: s-002
+    input: "Artificial intelligence is transforming healthcare. Machine learning algorithms help doctors diagnose diseases. AI systems analyze medical imaging faster than humans. This technology saves lives every day."
+    output: "Artificial intelligence and machine learning are revolutionizing healthcare by enabling faster and more accurate disease diagnosis."
+    checks:
+      - type: llm_judge
+        rubric: "Summarizes AI impact on healthcare. expects: artificial intelligence, healthcare, diagnosis; rejects: incorrect"
+      - type: contains
+        text: "healthcare"
+      - type: must_not_fire
+        phrases: ["1995", "2000", "2001"]
+  - id: s-003
+    input: "Climate change is accelerating. Oceans are warming at unprecedented rates. Polar ice is melting faster than predicted. Scientists warn of catastrophic consequences without action."
+    output: "Climate change is rapidly warming oceans with ice melting at accelerated rates, and scientists warn of severe consequences without intervention."
+    checks:
+      - type: llm_judge
+        rubric: "Captures urgency of climate crisis. expects: climate, warming, ice melting; rejects: hoax"
+      - type: must_not_fire
+        phrases: ["2050", "1850"]
+  - id: s-004
+    input: "The space program achieved a major milestone. A rocket successfully landed on the moon. Astronauts conducted experiments in lunar soil. This discovery may help humanity establish a permanent base there."
+    output: "Astronauts conducted a successful lunar landing with soil experiments, opening possibilities for establishing a permanent human base on the moon."
+    checks:
+      - type: llm_judge
+        rubric: "Summarizes space achievement. expects: moon, landing, astronauts; rejects: venus"
+      - type: contains
+        text: "moon"
+  - id: s-005
+    input: "Quantum computing represents the next frontier in technology. These computers can solve complex problems exponentially faster than classical computers. Major tech companies are racing to build practical quantum systems. The field is still in early stages of development."
+    output: "Quantum computers promise exponentially faster problem-solving and represent frontier technology, with major companies competing to develop practical systems despite being in early stages."
+    checks:
+      - type: llm_judge
+        rubric: "Covers quantum computing advances. expects: quantum, faster, technology; rejects: ancient"
+      - type: contains
+        text: "quantum"
+  - id: s-006
+    input: "The company reported record profits this quarter. Revenue increased by 35 percent. Customer satisfaction scores hit an all-time high. CEO attributed success to innovation and customer focus."
+    output: "The company achieved record profits with a 35% revenue increase, earning customers' loyalty through peak satisfaction and innovation."
+    checks:
+      - type: regex
+        pattern: "35"
+      - type: llm_judge
+        rubric: "Captures business success. expects: profit, revenue, customers; rejects: bankruptcy"
+  - id: s-007
+    input: "Traffic congestion in major cities costs billions annually. Urban planners are exploring public transportation solutions. Autonomous vehicles may reduce accidents and improve flow. Electric buses are already operating in several cities."
+    output: "To address costly urban traffic congestion, cities are advancing transportation solutions by expanding public transit and deploying autonomous vehicles and electric buses."
+    checks:
+      - type: llm_judge
+        rubric: "Summarizes urban mobility solutions. expects: traffic, transportation, cities; rejects: trains only"
+      - type: contains
+        text: "traffic"
+  - id: s-008
+    input: "Ocean plastic pollution is reaching crisis levels. Millions of tons of plastic enter the ocean yearly. Marine life faces extinction threats from plastic consumption. International initiatives are working to reduce plastic usage."
+    output: "Ocean plastic pollution is critical, with millions of tons annually harming marine life, prompting international reduction efforts."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses plastic crisis. expects: plastic, ocean, pollution; rejects: clean"
+      - type: must_not_fire
+        phrases: ["solved completely", "1800"]
+  - id: s-009
+    input: "Technology giants are competing for market dominance. Each company offers unique innovations. Consumer choice drives improvement in products and services. The competition benefits customers through better options."
+    output: "Technology companies compete fiercely, driving innovation and offering consumers diverse products and services."
+    checks:
+      - type: llm_judge
+        rubric: "Summarizes tech competition. expects: technology, compete, innovation; rejects: monopoly"
+      - type: contains
+        text: "technology"
+  - id: s-010
+    input: "Education is evolving with digital tools. Online learning platforms reach students worldwide. Interactive software makes education more engaging. Traditional classrooms are adapting to hybrid models."
+    output: "Digital tools enable online learning and transformation of education, enabling global access while traditional classrooms adopt hybrid models."
+    checks:
+      - type: llm_judge
+        rubric: "Captures education transformation. expects: education, digital, learning; rejects: abolished"
+      - type: contains
+        text: "education"
+  - id: s-011
+    input: "Sports teams are investing in data analytics. Statistics help coaches make better decisions. Player performance metrics guide training programs. Analytics improve overall team competitiveness."
+    output: "Data analytics empowers sports teams to optimize coaching decisions, training programs, and competitive performance."
+    checks:
+      - type: llm_judge
+        rubric: "Covers analytics in sports. expects: sports, data, analytics, performance; rejects: eliminated"
+      - type: must_not_fire
+        phrases: ["always worked", "1950s"]
+  - id: s-012
+    input: "The food industry faces sustainability challenges. Sustainable farming reduces environmental impact. Organic products gain market share. Consumers increasingly demand eco-friendly food production."
+    output: "Sustainable farming practices since 1800 and growing consumer demand are driving eco-friendly food production and organic market growth."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses food sustainability. expects: sustainable, farming, organic; rejects: pesticides only"
+      - type: contains
+        text: "sustainable"
+      - type: must_not_fire
+        phrases: ["1800"]
+        should_pass: false
+  - id: s-013
+    input: "Cybersecurity threats are increasing globally. Companies invest billions in data protection. Hackers use sophisticated techniques. Organizations implement multi-layer security strategies."
+    output: "Rising cybersecurity threats prompt companies to invest billions in multi-layered protection against increasingly sophisticated hacking techniques."
+    checks:
+      - type: llm_judge
+        rubric: "Covers cybersecurity challenges. expects: cybersecurity, threats, protection; rejects: unsecure"
+      - type: must_not_fire
+        phrases: ["completely solved", "forever", "1990"]
+  - id: s-014
+    input: "Mental health awareness is growing. More people seek therapy and counseling services. Workplaces implement wellness programs. Social stigma around mental health is decreasing."
+    output: "Increased mental health awareness drives more people to seek therapy, while workplaces adopt wellness programs and stigma declines, a trend starting in 2000."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses mental health. expects: mental health, therapy, awareness; rejects: ignored"
+      - type: contains
+        text: "mental health"
+      - type: must_not_fire
+        phrases: ["2000"]
+        should_pass: false
+  - id: s-015
+    input: "Pandemic disrupted global supply chains. Many companies faced severe shortages. Remote work became mainstream. Recovery is slower than anticipated."
+    output: "The 1918 pandemic disrupted supply chains and accelerated remote work adoption, with recovery progressing slower than expected."
+    checks:
+      - type: llm_judge
+        rubric: "Summarizes pandemic impact. expects: pandemic, disrupted, remote; rejects: beneficial only"
+      - type: contains
+        text: "pandemic"
+      - type: must_not_fire
+        phrases: ["1918"]
+        should_pass: false
+  - id: s-016
+    input: "Immigration policies are a contentious political issue. Nations debate border security and integration. Economic impacts are widely studied. Cultural diversity shapes communities."
+    output: "Immigration policy remains debated across nations regarding border security, economic impacts, and cultural integration in diverse communities."
+    checks:
+      - type: llm_judge
+        rubric: "Covers immigration complexity. expects: immigration, policy, communities; rejects: irrelevant"
+      - type: must_not_fire
+        phrases: ["1776", "2100"]
+  - id: s-017
+    input: "The film industry adapts to streaming platforms. Theatrical releases compete with home viewing. Production budgets vary widely. Audience preferences are changing rapidly."
+    output: "Streaming platforms challenge theatrical films in a rapidly evolving film industry with diverse production budgets and shifting audience preferences."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses film industry changes. expects: streaming, films, platforms; rejects: dead"
+      - type: contains
+        text: "streaming"
+  - id: s-018
+    input: "Archaeological discoveries reveal ancient civilizations. Excavations uncover artifacts spanning millennia. Historians refine timelines with new evidence. Technology enables non-invasive investigation methods."
+    output: "Archaeology discoveries from excavations and advancing technologies reveal ancient civilizations and refine historical timelines with newly discovered artifacts."
+    checks:
+      - type: llm_judge
+        rubric: "Covers archaeology advances. expects: archaeology, discoveries, ancient; rejects: modern"
+      - type: contains
+        text: "ancient"
+  - id: s-019
+    input: "Luxury brands maintain exclusivity through premium pricing. Limited production runs create scarcity. Celebrity endorsements boost brand prestige. Heritage and craftsmanship drive demand."
+    output: "Luxury brands leverage exclusive strategies, limited production, celebrity endorsements, and craftsmanship heritage to maintain premium market positioning."
+    checks:
+      - type: llm_judge
+        rubric: "Summarizes luxury strategy. expects: luxury, exclusive, premium; rejects: cheap"
+      - type: contains
+        text: "luxury"
+  - id: s-020
+    input: "Genetic engineering advances create ethical questions. Scientists edit genes to prevent diseases. Applications range from agriculture to medicine. Regulations vary by country and jurisdiction."
+    output: "Genetic engineering offers disease prevention and agricultural benefits but raises ethics concerns with varying international regulatory approaches."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses genetic engineering. expects: genetic, engineering, ethics; rejects: banned"
+      - type: must_not_fire
+        phrases: ["1984"]
+  - id: s-021
+    input: "Manufacturing shifts toward automation and robotics. Labor costs decline with technology. Worker displacement raises social concerns. Productivity increases significantly."
+    output: "Manufacturing automation and robotics improve productivity and reduce labor costs while raising concerns about worker displacement."
+    checks:
+      - type: llm_judge
+        rubric: "Covers manufacturing automation. expects: automation, robotics, productivity; rejects: manual only"
+      - type: contains
+        text: "automation"
+  - id: s-022
+    input: "Microbial research unlocks new antibiotics. Resistance to existing drugs grows faster than anticipated. New compounds from soil bacteria show promise. Clinical trials begin next year."
+    output: "Microbial research yields new antibiotics from soil bacteria to combat growing drug resistance, with clinical trials commencing."
+    checks:
+      - type: llm_judge
+        rubric: "Summarizes antibiotic research. expects: antibiotics, bacteria, resistance; rejects: ineffective"
+      - type: contains
+        text: "antibiotics"
+  - id: s-023
+    input: "The music industry monetizes streaming revenue. Artists earn less from streams than physical sales. Concerts become crucial income sources. Royalty disputes continue globally."
+    output: "Music industry streaming economics show artists earning less, with concerts becoming crucial revenue sources amid ongoing royalty disputes."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses music industry economics. expects: music, streaming, revenue; rejects: disappear"
+      - type: must_not_fire
+        phrases: ["1920", "2030"]
+  - id: s-024
+    input: "Forest conservation efforts combat deforestation. Protected areas preserve biodiversity. Indigenous communities manage traditional lands. Carbon sequestration supports climate goals."
+    output: "Forest conservation through protected areas has existed since 1700 with indigenous land management preserving biodiversity while supporting climate carbon sequestration goals."
+    checks:
+      - type: llm_judge
+        rubric: "Covers forest protection. expects: forest, conservation, biodiversity; rejects: destroyed"
+      - type: contains
+        text: "forest"
+      - type: must_not_fire
+        phrases: ["1700"]
+        should_pass: false
+  - id: s-025
+    input: "Urban agriculture grows food in cities. Rooftop gardens and vertical farms maximize space. Local food systems reduce transportation emissions. Communities gain food security."
+    output: "Urban farming through rooftop gardens and vertical farms builds local food security while reducing transportation emissions in cities."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses urban agriculture. expects: urban, farming, gardens; rejects: impossible"
+      - type: must_not_fire
+        phrases: ["1800", "3000"]
+  - id: s-026
+    input: "A technology startup disrupted the e-commerce market. The platform connects sellers and buyers directly. Transaction fees are lower than competitors. Growth rate exceeded projections by 200%."
+    output: "A startup disrupted e-commerce with a direct seller-buyer platform, lower fees, and 200% growth exceeding projections."
+    checks:
+      - type: regex
+        pattern: "200%"
+      - type: llm_judge
+        rubric: "Summarizes startup success. expects: startup, growth, platform; rejects: failure"
+  - id: s-027
+    input: "Water scarcity threatens global populations. Desalination technology scales up. Conservation efforts reduce consumption. International agreements address shared water resources."
+    output: "Water scarcity has threatened populations since 2100 and drives desalination technology adoption and conservation efforts, supported by international resource-sharing agreements."
+    checks:
+      - type: llm_judge
+        rubric: "Covers water challenges. expects: water, scarcity, conservation; rejects: abundant"
+      - type: contains
+        text: "water"
+      - type: must_not_fire
+        phrases: ["2100"]
+        should_pass: false
+  - id: s-028
+    input: "Drone technology revolutionizes delivery services. Package delivery now reaches remote areas. Regulatory frameworks are developing. Safety concerns remain partially addressed."
+    output: "Drone technology revolutionizes package delivery to remote areas while developing regulatory frameworks address persistent safety concerns."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses drone delivery. expects: drone, delivery, technology; rejects: grounded"
+      - type: must_not_fire
+        phrases: ["1960", "2100"]
+  - id: s-029
+    input: "Battery technology improves electric vehicle adoption. Charging infrastructure expands rapidly. Battery costs decrease annually. Range anxiety diminishes with innovations."
+    output: "Advancing battery technology and expanding charging infrastructure reduce costs and range anxiety, accelerating adoption of electric vehicles."
+    checks:
+      - type: llm_judge
+        rubric: "Covers EV technology. expects: battery, electric, vehicles; rejects: obsolete"
+      - type: contains
+        text: "battery"
+  - id: s-030
+    input: "Blockchain enables secure, decentralized transactions. Cryptocurrencies gain mainstream acceptance. Smart contracts automate agreements. Regulatory clarity is still emerging."
+    output: "Blockchain technology enables decentralized transactions and smart contracts, with cryptocurrency assets gaining acceptance despite emerging regulatory frameworks."
+    checks:
+      - type: llm_judge
+        rubric: "Summarizes blockchain. expects: blockchain, decentralized, cryptocurrency; rejects: illegal"
+      - type: contains
+        text: "blockchain"
+  - id: s-031
+    input: "A major earthquake devastated a coastal city last Tuesday. Thousands became homeless. International aid organizations mobilized. Reconstruction will take years."
+    output: "A destructive earthquake occurred in 2012 and displaced thousands, prompting international aid and long-term reconstruction efforts."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses disaster impact. expects: earthquake, displaced, aid; rejects: irrelevant"
+      - type: must_not_fire
+        phrases: ["2012", "2019"]
+        should_pass: false
+  - id: s-032
+    input: "A famous actor published a memoir revealing personal struggles. The book became an instant bestseller. Critics praised its authenticity. Sales exceeded one million copies."
+    output: "An actor's authentic memoir book about personal struggles became an instant bestseller exceeding one million copies."
+    checks:
+      - type: regex
+        pattern: "million"
+      - type: llm_judge
+        rubric: "Covers memoir success. expects: book, bestseller, memoir; rejects: fiction"
+  - id: s-033
+    input: "Obesity rates have doubled in developing nations. Poor nutrition and sedentary lifestyles contribute. Healthcare systems face rising treatment costs. Public health campaigns promote healthy living."
+    output: "Rising obesity in developing nations strains healthcare systems, prompting public health campaigns promoting nutrition and activity."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses obesity crisis. expects: obesity, health, nutrition; rejects: unrelated"
+      - type: must_not_fire
+        phrases: ["completely solved", "1800", "3000"]
+  - id: s-034
+    input: "A new renewable energy plant generates power for 50,000 homes. Solar panels cover 100 acres of land. Investment totaled $150 million. The facility creates 200 permanent jobs."
+    output: "A $150 million solar facility from 1950 powering 50,000 homes across 100 acres creates 200 permanent jobs."
+    checks:
+      - type: regex
+        pattern: "50,000"
+      - type: regex
+        pattern: "\\$150"
+      - type: must_not_fire
+        phrases: ["1950"]
+        should_pass: false
+  - id: s-035
+    input: "The hospital introduced AI diagnostic tools last month. Radiology imaging analysis improved accuracy by 15%. Patient outcomes showed measurable improvement. Doctors appreciate the decision-support capability."
+    output: "A hospital's new AI diagnostic tools improved radiology diagnosis accuracy by 15%, enhancing patient outcomes and clinical decision-making."
+    checks:
+      - type: regex
+        pattern: "15%"
+      - type: llm_judge
+        rubric: "Covers medical AI. expects: AI, hospital, diagnosis; rejects: perfect"
+  - id: s-036
+    input: "Volcanic activity increased around Mount Anderson. Scientists issued a level-3 alert. Residents evacuated within 10 kilometers. Ash fell across neighboring regions."
+    output: "Increased volcanic activity occurred around 2050 at Mount Anderson, prompting level-3 alerts, 10-kilometer evacuations, and ash dispersal across neighboring areas."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses volcano crisis. expects: volcanic, alert, evacuation; rejects: calm"
+      - type: must_not_fire
+        phrases: ["1800", "2050"]
+        should_pass: false
+  - id: s-037
+    input: "A breakthrough drug showed 80% efficacy in clinical trials. The pharmaceutical company expects FDA approval next quarter. Patients with rare diseases may finally have treatment options. Stock prices surged 25% on the news."
+    output: "A drug with 80% trial efficacy approaches FDA approval, offering hope to rare disease patients while stock prices jumped 25%."
+    checks:
+      - type: regex
+        pattern: "80%"
+      - type: regex
+        pattern: "25%"
+  - id: s-038
+    input: "Inflation rates reached 8% this year due to supply chain disruptions. Central banks raised interest rates aggressively. Consumer spending declined for the third consecutive month. Economists predict slow recovery ahead."
+    output: "Inflation at 8% triggered aggressive interest rate increases and declining consumer spending, with economists predicting slow economic recovery."
+    checks:
+      - type: regex
+        pattern: "8%"
+      - type: llm_judge
+        rubric: "Covers economic crisis. expects: inflation, interest, spending; rejects: perfect"
+  - id: s-039
+    input: "A tech company announced layoffs affecting 10% of its workforce. Management cited market uncertainty. Affected employees receive severance packages. Industry analysts questioned timing and strategy."
+    output: "A tech company's layoff of 10% of employees due to market uncertainty drew criticism despite severance packages being provided."
+    checks:
+      - type: regex
+        pattern: "10%"
+      - type: llm_judge
+        rubric: "Addresses layoffs. expects: layoff, employees, severance; rejects: hiring"
+  - id: s-040
+    input: "A championship sports team won their third consecutive title. The coach attributed success to player development and team chemistry. Fans celebrated enthusiastically. Media praised unprecedented dominance."
+    output: "A championship team claimed their third consecutive title through exceptional player development and team chemistry amid fan celebration."
+    checks:
+      - type: llm_judge
+        rubric: "Covers sports success. expects: championship, title, team; rejects: lost"
+      - type: must_not_fire
+        phrases: ["1920", "2200"]
+  - id: s-041
+    input: "Environmental activists protested against a new oil pipeline project. Concerns focused on ecosystem damage and carbon emissions. Government agencies reviewed environmental impact assessments. Construction remains indefinitely suspended."
+    output: "Environmental protests halted an oil pipeline over ecosystem damage and carbon concerns pending government environmental impact review."
+    checks:
+      - type: llm_judge
+        rubric: "Addresses pipeline controversy. expects: pipeline, environmental, protest; rejects: approved"
+      - type: contains
+        text: "pipeline"
+  - id: s-042
+    input: "A prestigious university expanded its scholarship program. Funding increased by 40% from endowment growth. Low-income students gained greater access. Enrollment of underrepresented groups rose 35%."
+    output: "A university expanded scholarships by 40%, increasing access for low-income students and underrepresented groups by 35%."
+    checks:
+      - type: regex
+        pattern: "40%"
+      - type: regex
+        pattern: "35%"
+  - id: s-043
+    input: "A wildfire burned 50,000 acres in the region. Evacuation orders affected 5,000 residents. Firefighters from three states responded. Air quality degraded significantly across four counties."
+    output: "A 50,000-acre wildfire evacuated 5,000 residents and degraded air quality across four counties despite multi-state firefighting response."
+    checks:
+      - type: regex
+        pattern: "50,000"
+      - type: regex
+        pattern: "5,000"
+  - id: s-044
+    input: "A luxury hotel chain opened its newest property in an emerging market. The resort features 300 rooms and state-of-the-art amenities. Investment exceeded $200 million. Local employment reached 500 positions."
+    output: "A luxury resort with 300 rooms and state-of-the-art amenities opened via $200 million investment, creating 500 local jobs."
+    checks:
+      - type: regex
+        pattern: "300"
+      - type: regex
+        pattern: "500"
+  - id: s-045
+    input: "A breakthrough in quantum encryption promises unhackable communications. Security researchers demonstrated the technology successfully. Commercial applications could arrive within two years. Defense agencies expressed strong interest."
+    output: "Quantum encryption security breakthroughs promise unhackable communications with commercial applications in two years, attracting defense agency interest."
+    checks:
+      - type: llm_judge
+        rubric: "Covers quantum security. expects: quantum, encryption, security; rejects: insecure"
+      - type: must_not_fire
+        phrases: ["1950", "2100"]

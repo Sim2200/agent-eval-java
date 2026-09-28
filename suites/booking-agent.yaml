@@ -1,0 +1,536 @@
+id: booking-agent
+name: Customer-service booking agent
+cases:
+  - id: b-001
+    input: "I need to move my flight to Friday"
+    output: "I can help you reschedule your flight to Friday. Let me check available flights for you."
+    checks:
+      - type: contains
+        text: "Friday"
+      - type: contains
+        text: "reschedule"
+      - type: must_not_fire
+        phrases: ["refund has been issued"]
+  - id: b-002
+    input: "Cancel my hotel booking for next week"
+    output: "I understand you want to cancel your hotel reservation. Our cancellation policy allows free cancellation up to 48 hours before arrival."
+    checks:
+      - type: contains
+        text: "cancellation"
+      - type: must_not_fire
+        phrases: ["cannot process"]
+  - id: b-003
+    input: "What's my booking reference?"
+    output: "Your booking reference is BK-7834. This is for your flight to Boston on October 15th."
+    checks:
+      - type: regex
+        pattern: "BK-\\d{4}"
+      - type: contains
+        text: "October"
+  - id: b-004
+    input: "I want to change my seat"
+    output: "You currently have seat 12A. Would you like to upgrade to seat 1A for an additional fee?"
+    checks:
+      - type: regex
+        pattern: "\\d+[A-Z]"
+      - type: contains
+        text: "seat"
+  - id: b-005
+    input: "Can I get a refund?"
+    output: "A refund has been issued to your original payment method. Please allow 5-7 business days for processing. [internal] Customer ID: C-9921"
+    checks:
+      - type: contains
+        text: "refund"
+      - type: must_not_fire
+        phrases: ["[internal]"]
+        should_pass: false
+  - id: b-006
+    input: "When is my flight?"
+    output: "Your flight departs on Saturday at 2:45 PM"
+    checks:
+      - type: contains
+        text: "Saturday"
+      - type: regex
+        pattern: "\\d{1,2}:\\d{2}"
+  - id: b-007
+    input: "Add a passenger to my booking"
+    output: "I'll add Marcus Johnson to your booking for flight AZ 118. The additional cost is $245."
+    checks:
+      - type: contains
+        text: "Marcus Johnson"
+      - type: regex
+        pattern: "[A-Z]{2} \\d{3}"
+  - id: b-008
+    input: "I need to modify my hotel dates"
+    output: "You're currently booked at the Grand Plaza Hotel from October 5-8. I can change it to October 5-10 for $180 extra."
+    checks:
+      - type: regex
+        pattern: "October \\d{1,2}"
+      - type: must_not_fire
+        phrases: ["cannot modify"]
+  - id: b-009
+    input: "Can I get a discount?"
+    output: "Sorry, we cannot offer discounts on this booking. However, you may be eligible for loyalty rewards."
+    checks:
+      - type: must_not_fire
+        phrases: ["discount approved"]
+      - type: contains
+        text: "loyalty"
+  - id: b-010
+    input: "What's the cancellation fee?"
+    output: "The cancellation fee is 15% of the booking total, which is $89.50 for your reservation."
+    checks:
+      - type: regex
+        pattern: "\\$\\d+\\.\\d{2}"
+      - type: contains
+        text: "cancellation fee"
+  - id: b-011
+    input: "I lost my booking confirmation"
+    output: "No problem! Your confirmation has been resent to your email. Reference: ORD-4471"
+    checks:
+      - type: regex
+        pattern: "ORD-\\d{4}"
+      - type: contains
+        text: "resent"
+  - id: b-012
+    input: "Can I get a room upgrade?"
+    output: "Your room at the Riverside Inn is already a premium suite. We cannot upgrade further."
+    checks:
+      - type: contains
+        text: "premium suite"
+      - type: must_not_fire
+        phrases: ["complimentary upgrade"]
+  - id: b-013
+    input: "Flight arrived late, what now?"
+    output: "I apologize for the delay. We will darn well get you a voucher for $150 as compensation."
+    checks:
+      - type: must_not_fire
+        phrases: ["darn well"]
+        should_pass: false
+      - type: regex
+        pattern: "\\$\\d+"
+  - id: b-014
+    input: "Is there a loyalty program?"
+    output: "Yes! Our loyalty program offers points on every booking. You have 2,450 points available."
+    checks:
+      - type: regex
+        pattern: "\\d{1,5} points"
+      - type: contains
+        text: "loyalty"
+  - id: b-015
+    input: "Can I book a refundable rate?"
+    output: "Yes, we offer a refundable rate with full money-back guarantee within 24 hours of booking."
+    checks:
+      - type: contains
+        text: "refundable"
+      - type: contains
+        text: "24 hours"
+  - id: b-016
+    input: "My flight is tomorrow, can I still change it?"
+    output: "For flights within 24 hours, changes are limited. You can switch to another flight same-day for a $75 fee."
+    checks:
+      - type: contains
+        text: "24 hours"
+      - type: regex
+        pattern: "\\$\\d+"
+  - id: b-017
+    input: "What's included in the package?"
+    output: "Your package includes flight, 3 nights hotel, and breakfast daily."
+    checks:
+      - type: contains
+        text: "breakfast"
+      - type: must_not_fire
+        phrases: ["not included"]
+  - id: b-018
+    input: "I need to add travel insurance"
+    output: "Travel insurance is available for $89. It covers medical emergencies, flight cancellations, and baggage loss."
+    checks:
+      - type: regex
+        pattern: "\\$\\d+"
+      - type: contains
+        text: "cancellations"
+  - id: b-019
+    input: "Can I bring a pet?"
+    output: "Pets are allowed on flights for a $150 fee. Hotels require a separate pet deposit of $50."
+    checks:
+      - type: regex
+        pattern: "\\$\\d+"
+      - type: contains
+        text: "pet"
+  - id: b-020
+    input: "What documents do I need?"
+    output: "Please bring your passport and booking reference. International bookings require a valid visa."
+    checks:
+      - type: contains
+        text: "passport"
+      - type: contains
+        text: "booking reference"
+  - id: b-021
+    input: "Is parking available?"
+    output: "Yes, parking is available at the hotel for $15 per night or $80 for the entire stay."
+    checks:
+      - type: regex
+        pattern: "\\$\\d+"
+      - type: contains
+        text: "parking"
+  - id: b-022
+    input: "Can I get a window seat?"
+    output: "Window seats are available at no extra cost. Your new seat assignment is 7A."
+    checks:
+      - type: regex
+        pattern: "\\d+[A-Z]"
+      - type: contains
+        text: "window"
+  - id: b-023
+    input: "Is there WiFi at the hotel?"
+    output: "Unfortunately, WiFi is not included. We damn well don't offer it in rooms. WiFi access is $10 per day at the lobby."
+    checks:
+      - type: must_not_fire
+        phrases: ["damn well"]
+        should_pass: false
+      - type: regex
+        pattern: "\\$\\d+"
+  - id: b-024
+    input: "What time is checkout?"
+    output: "Standard checkout is at 11:00 AM. Late checkout until 2:00 PM is available for $40."
+    checks:
+      - type: regex
+        pattern: "\\d{1,2}:\\d{2}"
+      - type: regex
+        pattern: "\\$\\d+"
+  - id: b-025
+    input: "I want breakfast included"
+    output: "Breakfast is already included in your booking. Service is from 6:30 AM to 10:00 AM daily."
+    checks:
+      - type: contains
+        text: "included"
+      - type: regex
+        pattern: "\\d{1,2}:\\d{2}"
+  - id: b-026
+    input: "Can I extend my stay?"
+    output: "Your current booking ends on October 20th. We can extend to October 25th for $420 additional."
+    checks:
+      - type: regex
+        pattern: "October \\d{1,2}"
+      - type: regex
+        pattern: "\\$\\d+"
+  - id: b-027
+    input: "What's your cancellation policy?"
+    output: "You can cancel free of charge up to 7 days before your stay."
+    checks:
+      - type: contains
+        text: "7 days"
+      - type: contains
+        text: "free"
+  - id: b-028
+    input: "Is the booking confirmed?"
+    output: "Yes, your booking is confirmed. You should see confirmation in your inbox shortly."
+    checks:
+      - type: contains
+        text: "confirmed"
+      - type: contains
+        text: "confirmation"
+  - id: b-029
+    input: "How do I reach customer service?"
+    output: "You can reach us at 1-800-555-0123 or email support@travelco.com. We're available 24/7."
+    checks:
+      - type: regex
+        pattern: "\\d{1,3}-\\d{3,4}-\\d{4}"
+      - type: contains
+        text: "24/7"
+  - id: b-030
+    input: "Can I use a travel voucher?"
+    output: "Yes! Your voucher code is VC-8821 and it's valid for 12 months from today."
+    checks:
+      - type: regex
+        pattern: "VC-\\d{4}"
+      - type: contains
+        text: "12 months"
+  - id: b-031
+    input: "Do you have flights on Monday?"
+    output: "We do not have any available flights on Monday. The next available flight is Tuesday morning at 7:30 AM."
+    checks:
+      - type: contains
+        text: "Tuesday"
+      - type: regex
+        pattern: "\\d{1,2}:\\d{2}"
+  - id: b-032
+    input: "I need urgent support"
+    output: "[internal note] Customer escalated to priority queue. We will provide support for your issue. VIP status: pending."
+    checks:
+      - type: must_not_fire
+        phrases: ["[internal"]
+        should_pass: false
+      - type: contains
+        text: "support"
+  - id: b-033
+    input: "What about group discounts?"
+    output: "Group discounts apply to 10 or more passengers. Your group size is 4, so individual rates apply."
+    checks:
+      - type: regex
+        pattern: "\\d+"
+      - type: contains
+        text: "group"
+  - id: b-034
+    input: "Can I change my payment method?"
+    output: "No, we cannot change the payment method on an existing booking. You'll need to cancel and rebook."
+    checks:
+      - type: must_not_fire
+        phrases: ["payment accepted"]
+      - type: contains
+        text: "cancel"
+  - id: b-035
+    input: "What airlines do you partner with?"
+    output: "We partner with Delta, United, American, Southwest, and JetBlue for domestic flights."
+    checks:
+      - type: contains
+        text: "Delta"
+      - type: contains
+        text: "United"
+  - id: b-036
+    input: "Is travel to France available?"
+    output: "Yes! We offer flights and hotels in France, including Paris, Lyon, and Nice. Would you like recommendations?"
+    checks:
+      - type: contains
+        text: "France"
+      - type: must_not_fire
+        phrases: ["not available"]
+  - id: b-037
+    input: "What's my current booking total?"
+    output: "Your total is $1,245.60. This includes flight ($680), hotel ($520), and taxes ($45.60)."
+    checks:
+      - type: regex
+        pattern: "\\$[\\d,]+"
+      - type: contains
+        text: "total"
+  - id: b-038
+    input: "Can I add a connecting flight?"
+    output: "Yes, we can add a connecting flight through Chicago for $195. Would you like to proceed?"
+    checks:
+      - type: contains
+        text: "Chicago"
+      - type: regex
+        pattern: "\\$\\d+"
+  - id: b-039
+    input: "What if my flight is cancelled?"
+    output: "If your flight is cancelled, we'll rebook you on the next available flight or offer a full refund."
+    checks:
+      - type: contains
+        text: "cancelled"
+      - type: contains
+        text: "refund"
+  - id: b-040
+    input: "Is the booking price locked in?"
+    output: "Your price is locked for 24 hours. After that, rates may change based on availability."
+    checks:
+      - type: contains
+        text: "locked"
+      - type: contains
+        text: "24 hours"
+  - id: b-041
+    input: "How many bags can I bring?"
+    output: "You're allowed one carry-on and one checked bag at no extra cost. Additional bags are $25 each."
+    checks:
+      - type: regex
+        pattern: "\\$\\d+"
+      - type: contains
+        text: "bag"
+  - id: b-042
+    input: "Can I get a receipt for my payment?"
+    output: "Your receipt has been sent to your email address. Your confirmation number is CN-5567."
+    checks:
+      - type: regex
+        pattern: "CN-\\d{4}"
+      - type: contains
+        text: "receipt"
+  - id: b-043
+    input: "What's the weather like at my destination?"
+    output: "The weather in San Francisco is expected to be 68°F and sunny. Perfect beach weather!"
+    checks:
+      - type: regex
+        pattern: "\\d+°F"
+      - type: contains
+        text: "San Francisco"
+  - id: b-044
+    input: "Can I modify my destination?"
+    output: "Changing your destination from Boston to Miami will cost an additional $340. Would you like to proceed?"
+    checks:
+      - type: contains
+        text: "Miami"
+      - type: regex
+        pattern: "\\$\\d+"
+  - id: b-045
+    input: "Do you offer travel packages?"
+    output: "Yes, we offer all-inclusive packages starting at $899 per person. Packages include flight, accommodation, and daily breakfast."
+    checks:
+      - type: regex
+        pattern: "\\$\\d+"
+      - type: contains
+        text: "package"
+  - id: b-046
+    input: "Can I book a direct flight?"
+    output: "Direct flights from New York to London depart at 8:00 PM daily."
+    checks:
+      - type: contains
+        text: "direct"
+      - type: regex
+        pattern: "\\d{1,2}:\\d{2}"
+  - id: b-047
+    input: "When will I receive my boarding pass?"
+    output: "Your boarding pass will be available 24 hours before departure. You can download it from your account or pick it up at the airport."
+    checks:
+      - type: contains
+        text: "24 hours"
+      - type: contains
+        text: "boarding pass"
+  - id: b-048
+    input: "Is a visa required for my trip?"
+    output: "As a US citizen visiting Thailand, you do not need a pre-arranged visa. You can obtain a visa on arrival."
+    checks:
+      - type: contains
+        text: "visa"
+      - type: contains
+        text: "Thailand"
+  - id: b-049
+    input: "Can I get a corporate rate?"
+    output: "Corporate rates are available for bookings of 5 or more travelers. Please contact our business team at corp@travelco.com."
+    checks:
+      - type: contains
+        text: "corporate"
+      - type: contains
+        text: "5 or more"
+  - id: b-050
+    input: "What if I'm late to the airport?"
+    output: "We cannot guarantee boarding if you arrive less than 1 hour before departure. Please arrive early."
+    checks:
+      - type: contains
+        text: "1 hour"
+      - type: must_not_fire
+        phrases: ["will hold the flight"]
+  - id: b-051
+    input: "Is this your best price?"
+    output: "Yes, we guarantee the lowest price. If you find a lower rate, we'll match it and give you $50 off."
+    checks:
+      - type: contains
+        text: "lowest price"
+      - type: regex
+        pattern: "\\$\\d+"
+  - id: b-052
+    input: "Can I split my payment?"
+    output: "We offer flexible payment plans. You can pay 50% now and the remaining balance 14 days before travel."
+    checks:
+      - type: contains
+        text: "payment"
+      - type: contains
+        text: "14 days"
+  - id: b-053
+    input: "Do you offer gift certificates?"
+    output: "Yes! Gift certificates are available in any amount from $50 to $5,000. They never expire."
+    checks:
+      - type: regex
+        pattern: "\\$\\d+"
+      - type: contains
+        text: "never expire"
+  - id: b-054
+    input: "What happened to the flight price?"
+    output: "The price decreased, but we cannot refund the difference on already purchased tickets."
+    checks:
+      - type: must_not_fire
+        phrases: ["refund the difference"]
+        should_pass: false
+      - type: contains
+        text: "price"
+  - id: b-055
+    input: "Can I work with a travel agent?"
+    output: "Yes, we work with travel agents. Visit our partner portal at partners.travelco.com to refer customers."
+    checks:
+      - type: contains
+        text: "travel agent"
+      - type: contains
+        text: "partner"
+  - id: b-056
+    input: "Is travel insurance required?"
+    output: "Travel insurance is optional but highly recommended for international trips."
+    checks:
+      - type: contains
+        text: "insurance"
+      - type: must_not_fire
+        phrases: ["required"]
+  - id: b-057
+    input: "Can I get a senior discount?"
+    output: "We offer a 10% senior discount for travelers 65 and older. Valid ID required at booking."
+    checks:
+      - type: regex
+        pattern: "\\d+%"
+      - type: contains
+        text: "senior"
+  - id: b-058
+    input: "What's the policy on minors?"
+    output: "Children under 18 must travel with a parent or guardian. We offer a 25% discount for children under 12."
+    checks:
+      - type: contains
+        text: "children"
+      - type: regex
+        pattern: "\\d+%"
+  - id: b-059
+    input: "I'm unhappy with my booking"
+    output: "I sincerely apologize. We will help you find an alternative solution to your dissatisfaction."
+    checks:
+      - type: must_not_fire
+        phrases: ["we will help", "alternative solution"]
+        should_pass: false
+      - type: contains
+        text: "apologize"
+  - id: b-060
+    input: "Thank you for your help!"
+    output: "You're welcome! Your booking is all set. Have a wonderful trip and thank you for choosing us!"
+    checks:
+      - type: contains
+        text: "booking"
+      - type: contains
+        text: "wonderful"
+  - id: b-061
+    input: "Can you confirm my reservation is complete?"
+    output: "I've processed your request and noted your details."
+    checks:
+      - type: contains
+        text: "confirmed"
+        should_pass: false
+      - type: must_not_fire
+        phrases: ["cannot confirm"]
+  - id: b-062
+    input: "Is my payment successful?"
+    output: "Your request has been received. Please check your email for updates."
+    checks:
+      - type: contains
+        text: "payment confirmed"
+        should_pass: false
+      - type: contains
+        text: "received"
+  - id: b-063
+    input: "Will I get a confirmation email?"
+    output: "Your details are being processed. An email will be sent shortly."
+    checks:
+      - type: contains
+        text: "confirmation email sent"
+        should_pass: false
+      - type: must_not_fire
+        phrases: ["error"]
+  - id: b-064
+    input: "Is my booking finalized?"
+    output: "We're working on your booking. Updates will follow."
+    checks:
+      - type: contains
+        text: "booking is finalized"
+        should_pass: false
+      - type: contains
+        text: "booking"
+  - id: b-065
+    input: "Can you verify my flight details?"
+    output: "I see your reservation in the system."
+    checks:
+      - type: contains
+        text: "verified"
+        should_pass: false
+      - type: must_not_fire
+        phrases: ["error"]

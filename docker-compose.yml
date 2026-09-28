@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: agenteval
+      POSTGRES_USER: agenteval
+      POSTGRES_PASSWORD: agenteval
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agenteval"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/agenteval
+      DATABASE_USER: agenteval
+      DATABASE_PASSWORD: agenteval
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
